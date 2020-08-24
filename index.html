@@ -160,7 +160,7 @@ app.controller('myCtrl', function($scope) {
           repeat = true;
         }
       }
-window.CP.exitedLoop(0);
+window.CP.exitedLoop(1);
 
       if(!repeat) {
         newItem.count = 1;
@@ -220,7 +220,7 @@ window.CP.exitedLoop(2);
     for( var i = 0; i < $scope.myItems.length; i++ ) {if (window.CP.shouldStopExecution(2)){break;}
       totalJail += ($scope.myItems[i].count) * ($scope.myItems[i].jail);
     }
-window.CP.exitedLoop(2);
+window.CP.exitedLoop(1);
 
     $scope.totalJail = totalJail;
   };
