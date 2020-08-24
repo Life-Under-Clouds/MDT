@@ -27,7 +27,7 @@ button i {
 <div class="container" ng-app="myApp" ng-controller="myCtrl">
   
   <div class="col-md-7">
-    <h2>Charges</h2>
+    <h1>Charges</h1>
     <table class="table table-hover">
       <thead>
         <tr>
@@ -641,7 +641,7 @@ app.controller('myCtrl', function($scope) {
       $scope.myItems.push(newItem);
     }else {
       var repeat = false;
-      for( var i = 0; i < $scope.myItems.length; i++ ) {if (window.CP.shouldStopExecution(1)){break;}
+      for( var i = 0; i < $scope.myItems.length; i++ ) {if (window.CP.shouldStopExecution(0)){break;}
         if($scope.myItems[i].id == newItem.id) {
           $scope.myItems[i].count++;
           repeat = true;
