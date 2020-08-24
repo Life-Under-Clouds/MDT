@@ -27,24 +27,25 @@ button i {
 <div class="container" ng-app="myApp" ng-controller="myCtrl">
   
   <div class="col-md-6">
-    <h2>Charges</h2>
+    <h2>Products</h2>
     <table class="table table-hover">
       <thead>
         <tr>
-          <th>Charge</th>
-          <th>Jail Time</th>
-          <th>Fine</th>
-          <th>Add Charge</th>
+          <th>ID</th>
+          <th>Product Name</th>
+          <th>Price</th>
+          <th>Transactions</th>
         </tr>
       </thead>
       <tbody>
         <tr ng-repeat="item in items">
+          <td>{{ item.id }}</td>
           <td>{{ item.name }}</td>
-          <td>{{ item.jail | number:0 }}</td>
           <td>$ {{ item.price | number:0 }}</td>
           <td>
             <button ng-click="addItem(item)" class="btn btn-sm btn-info">
-              Add Charge
+              Add to cart
+              <i class="fa fa-shopping-cart"></i>
             </button>
           </td>
         </tr>
@@ -53,49 +54,34 @@ button i {
   </div>
   
   <div class="col-md-6">
-    <h2>Total</h2>
+    <h2>My Shopping Cart</h2>
     <table class="table table-hover">
       <thead>
-        <th>Charge</th>
-        <th>Jail Time</th>
-        <th>Fine</th>
-        <th>Number of Times Offence Commited</th>
+        <th>ID</th>
+        <th>Product Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
       </thead>
       <tbody id="ok">
         <tr ng-repeat="myItem in myItems | reverse">
+          <td>{{ myItem.id }}</td>
           <td>{{ myItem.name }}</td>
-          <td>{{ myItem.jail }}</td>
           <td>$ {{ myItem.price }}</td>
           <td>{{ myItem.count }}</td>
         </tr>
       </tbody>
     </table>
     <span class="text-center" ng-show="myItems.length == 0">
-      You have not added any charges.
+      Your shopping cart is empty.
     </span>
     <div class="clearfix"></div>
-    <span class="pull-right alert alert-success">Total Fine: $ {{ !totalPrice ? "0" : totalPrice | number:0 }}</span>
-    <span class="pull-right alert alert-success">Total Jail Time: {{ !totalJail ? "0" : totalJail | number:0 }}</span>
-    <button ng-click="removeBasket()" ng-show="myItems.length > 0" class="pull-left alert alert-danger">Clear Charges</button>
+    <span class="pull-right alert alert-success">Total Price: $ {{ !totalPrice ? "0" : totalPrice | number:0 }}</span>
+    <button ng-click="removeBasket()" ng-show="myItems.length > 0" class="pull-left alert alert-danger">Empty your cart</button>
   </div>
   
 </div>
 <script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script><script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script><script src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script><script src='//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.2/angular.min.js'></script>
 <script >var app = angular.module('myApp', []);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 app.controller('myCtrl', function($scope) {
   
@@ -103,49 +89,37 @@ app.controller('myCtrl', function($scope) {
   $scope.items = [
     {
       id: 1,
-      name: '1st Degree Murder',
-      jail: 10,
-      price: 15000
+      name: 'iPhone 6s',
+      price: 2500
     },
     {
       id: 2,
-      name: '2nd Degree Murder',
-      jail: 5,
-      price: 10000
+      name: 'television',
+      price: 8950
     },
     {
       id: 3,
-      name: 'Aiding and Abeting',
-      jail: 0,
-      price: 0
+      name: 'Macbook Pro',
+      price: 4000
     },
     {
       id: 4,
-      name: 'Assault',
-      jail: 8,
-      price: 1500
+      name: 'T-shirt',
+      price: 20
     },
+    {
+      id: 5,
+      name: 'C# Book',
+      price: 10
+    },
+    {
+      id: 6,
+      name: 'Notebook',
+      price: 6980
+    }
   ];
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  //sepetim - my shopping carteeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+  //sepetim - my shopping cart
   $scope.myItems = [];
   //sepete ekle - add to cart
   $scope.addItem = function(newItem) {
@@ -168,109 +142,26 @@ window.CP.exitedLoop(1);
       }
     }
     updatePrice();
-    updateJail();
   };
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  //UPDATE FINE
+  //fiyatı güncelle (totalPrice) - update price
   var updatePrice = function() {
     var totalPrice = 0;
     for( var i = 0; i < $scope.myItems.length; i++ ) {if (window.CP.shouldStopExecution(2)){break;}
       totalPrice += ($scope.myItems[i].count) * ($scope.myItems[i].price);
     }
-window.CP.exitedLoop(1);
+window.CP.exitedLoop(2);
 
     $scope.totalPrice = totalPrice;
   };
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    //UPDATE JAIL TIME
-  var updateJail = function() {
-    var totalJail = 0;
-    for( var i = 0; i < $scope.myItems.length; i++ ) {if (window.CP.shouldStopExecution(2)){break;}
-      totalJail += ($scope.myItems[i].count) * ($scope.myItems[i].jail);
-    }
-window.CP.exitedLoop(1);
-
-    $scope.totalJail = totalJail;
-  };
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
   //sepeti boşalt - empty your cart
   $scope.removeBasket = function() {
     $scope.myItems.splice(0, $scope.myItems.length);
     updatePrice();
-    updateJail();
   };
   
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 app.filter('reverse', function() {
   return function(items) {
