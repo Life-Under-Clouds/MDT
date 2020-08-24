@@ -27,25 +27,24 @@ button i {
 <div class="container" ng-app="myApp" ng-controller="myCtrl">
   
   <div class="col-md-6">
-    <h2>Products</h2>
+    <h2>Charges</h2>
     <table class="table table-hover">
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Product Name</th>
-          <th>Price</th>
-          <th>Transactions</th>
+          <th>Charge</th>
+          <th>Jail Time</th>
+          <th>Fine</th>
+          <th>Add Charge</th>
         </tr>
       </thead>
       <tbody>
         <tr ng-repeat="item in items">
-          <td>{{ item.id }}</td>
           <td>{{ item.name }}</td>
+          <td>{{ item.jail | number:0 }}</td>
           <td>$ {{ item.price | number:0 }}</td>
           <td>
             <button ng-click="addItem(item)" class="btn btn-sm btn-info">
-              Add to cart
-              <i class="fa fa-shopping-cart"></i>
+              Add Charge
             </button>
           </td>
         </tr>
@@ -54,72 +53,586 @@ button i {
   </div>
   
   <div class="col-md-6">
-    <h2>My Shopping Cart</h2>
+    <h2>Total</h2>
     <table class="table table-hover">
       <thead>
-        <th>ID</th>
-        <th>Product Name</th>
-        <th>Price</th>
-        <th>Quantity</th>
+        <th>Charge</th>
+        <th>Jail Time</th>
+        <th>Fine</th>
+        <th>Number of Times Offence Commited</th>
       </thead>
       <tbody id="ok">
         <tr ng-repeat="myItem in myItems | reverse">
-          <td>{{ myItem.id }}</td>
           <td>{{ myItem.name }}</td>
+          <td>{{ myItem.jail }}</td>
           <td>$ {{ myItem.price }}</td>
           <td>{{ myItem.count }}</td>
         </tr>
       </tbody>
     </table>
     <span class="text-center" ng-show="myItems.length == 0">
-      Your shopping cart is empty.
+      You have not added any charges.
     </span>
     <div class="clearfix"></div>
-    <span class="pull-right alert alert-success">Total Price: $ {{ !totalPrice ? "0" : totalPrice | number:0 }}</span>
-    <button ng-click="removeBasket()" ng-show="myItems.length > 0" class="pull-left alert alert-danger">Empty your cart</button>
+    <span class="pull-right alert alert-success">Total Fine: $ {{ !totalPrice ? "0" : totalPrice | number:0 }}</span>
+    <span class="pull-right alert alert-success">Total Jail Time: {{ !totalJail ? "0" : totalJail | number:0 }}</span>
+    <button ng-click="removeBasket()" ng-show="myItems.length > 0" class="pull-left alert alert-danger">Clear Charges</button>
   </div>
   
 </div>
 <script src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script><script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script><script src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script><script src='//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.2/angular.min.js'></script>
 <script >var app = angular.module('myApp', []);
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 app.controller('myCtrl', function($scope) {
   
   //ürünler - products
   $scope.items = [
     {
-      id: 1,
-      name: 'iPhone 6s',
-      price: 2500
+      id:1,
+      name: '1st Degree Murder',
+      jail: 20,
+      price: 15000
     },
     {
       id: 2,
-      name: 'television',
-      price: 8950
+      name: '2nd Degree Murder',
+      jail: 15,
+      price: 10000
     },
     {
       id: 3,
-      name: 'Macbook Pro',
-      price: 4000
+      name: 'Aiding and Abeting',
+      jail: 0,
+      price: 0
     },
     {
       id: 4,
-      name: 'T-shirt',
-      price: 20
+      name: 'Assault',
+      jail: 5,
+      price: 1500
     },
     {
       id: 5,
-      name: 'C# Book',
-      price: 10
+      name: 'Assault w/ deadly weapon',
+      jail: 10,
+      price: 2000
     },
     {
       id: 6,
-      name: 'Notebook',
-      price: 6980
-    }
+      name: 'Attempted murder on government offical',
+      jail: 20,
+      price: 15000
+    },
+    {
+      id: 7,
+      name: 'Attmp. Grand Theft Auto',
+      jail: 0,
+      price: 500
+    },
+    {
+      id: 8,
+      name: 'Att. Murder',
+      jail: 10,
+      price: 5000
+    },
+    {
+      id: 9,
+      name: 'Armed Robbery',
+      jail: 5,
+      price: 10000
+    },
+    {
+      id: 10,
+      name: 'Destruction of goverment property',
+      jail: 0,
+      price: 1000
+    },
+    {
+      id: 11,
+      name: 'Evasion',
+      jail: 5,
+      price: 2000
+    },
+    {
+      id: 12,
+      name: 'Extortion of Banks',
+      jail: 15,
+      price: 0
+    },
+    {
+      id: 13,
+      name: 'Extorion of Banks x2',
+      jail: 30,
+      price: 0
+    },
+    {
+      id: 14,
+      name: 'Extortion',
+      jail: 5,
+      price: 2000
+    },
+    {
+      id: 15,
+      name: 'Fraud',
+      jail: 0,
+      price: 750
+    },
+    {
+      id: 16,
+      name: 'Gang Affiliation',
+      jail: 10,
+      price: 10000
+    },
+    {
+      id: 17,
+      name: 'Grand Theft Auto',
+      jail: 5,
+      price: 5000
+    },
+    {
+      id: 18,
+      name: 'Kidnapping ',
+      jail: 5,
+      price: 2000
+    },
+    {
+      id: 19,
+      name: 'Manslaughter',
+      jail: 15,
+      price: 10000
+    },
+    {
+      id: 20,
+      name: 'Possession of an illegal firearm [Class 3]',
+      jail: 5,
+      price: 2500
+    },
+    {
+      id: 21,
+      name: 'Possession of an illegal firearm [Class 2]',
+      jail: 5,
+      price: 1500
+    },
+    {
+      id: 22,
+      name: 'Terroristic Acts',
+      jail: 30,
+      price: 15000
+    },
+    {
+      id: 23,
+      name: 'Terroristic Threats',
+      jail: 10,
+      price: 2000
+    },
+    {
+      id: 24,
+      name: 'Behavioural',
+      jail: 20,
+      price: 0
+    },
+    {
+      id: 25,
+      name: 'Brandishing a firearm',
+      jail: 5,
+      price: 500
+    },
+    {
+      id: 26,
+      name: 'Bribery',
+      jail: 0,
+      price: 500
+    },
+    {
+      id: 27,
+      name: 'Criminal threats',
+      jail: 0,
+      price: 500
+    },
+    {
+      id: 28,
+      name: 'Destruction of evidence',
+      jail: 5,
+      price: 500
+    },
+    {
+      id: 29,
+      name: 'Disorderly Conduct',
+      jail: 10,
+      price: 300
+    },
+    {
+      id: 30,
+      name: 'Driving while intoxiated',
+      jail: 10,
+      price: 1000
+    },
+    {
+      id: 31,
+      name: 'Driving under the influence',
+      jail: 10,
+      price: 1000
+    },
+    {
+      id: 32,
+      name: 'Failure to comply',
+      jail: 5,
+      price: 500
+    },
+    {
+      id: 33,
+      name: 'Failure to identify',
+      jail: 5000,
+      price: 0
+    },
+    {
+      id: 34,
+      name: 'Forgery',
+      jail: 5,
+      price: 500
+    },
+    {
+      id: 35,
+      name: 'Harassment',
+      jail: 5,
+      price: 500
+    },
+    {
+      id: 36,
+      name: 'Hit & Run',
+      jail: 10,
+      price: 1000
+    },
+    {
+      id: 37,
+      name: 'Impersonation of a Government Official',
+      jail: 10,
+      price: 1000
+    },
+    {
+      id: 38,
+      name: 'Jaywalking',
+      jail: 0,
+      price: 100
+    },
+    {
+      id: 39,
+      name: 'Loitering',
+      jail: 0,
+      price: 500
+    },
+    {
+      id: 40,
+      name: 'Obstruction of justice',
+      jail: 25,
+      price: 500
+    },
+    {
+      id: 41,
+      name: 'Operating a illegal non licensed business',
+      jail: 5,
+      price: 1000
+    },
+    {
+      id: 42,
+      name: 'Possession of an illegal firearm [Class 1]',
+      jail: 5,
+      price: 1000
+    },
+    {
+      id: 43,
+      name: 'Possession of a firearm without a licence',
+      jail: 5,
+      price: 1000
+    },
+    {
+      id: 44,
+      name: 'Possession of an illegal weapon',
+      jail: 5,
+      price: 300
+    },
+    {
+      id: 45,
+      name: 'Prostitution',
+      jail: 5,
+      price: 350
+    },
+    {
+      id: 46,
+      name: 'Public intoxication',
+      jail: 10,
+      price: 100
+    },
+    {
+      id: 47,
+      name: 'Indecent Exposure',
+      jail: 5,
+      price: 350
+    },
+    {
+      id: 48,
+      name: 'Resisting Arrest',
+      jail: 10,
+      price: 1000
+    },
+    {
+      id: 49,
+      name: 'Stalking',
+      jail: 5,
+      price: 500
+    },
+    {
+      id: 50,
+      name: 'Tresspassing',
+      jail: 5,
+      price: 250
+    },
+    {
+      id: 51,
+      name: 'Unlawful discharge of a firearm',
+      jail: 10,
+      price: 1000
+    },
+    {
+      id: 52,
+      name: 'Driving on a suspended license',
+      jail: 0,
+      price: 1000
+    },
+    {
+      id: 53,
+      name: 'Driving whithout a license',
+      jail: 0,
+      price: 500
+    },
+    {
+      id: 54,
+      name: 'Excessive vehicle noise',
+      jail: 0,
+      price: 500
+    },
+    {
+      id: 55,
+      name: 'Excessive honking',
+      jail: 0,
+      price: 250
+    },
+    {
+      id: 56,
+      name: 'Failure to stop',
+      jail: 0,
+      price: 250
+    },
+    {
+      id: 57,
+      name: 'Failure to yield',
+      jail: 0,
+      price: 250
+    },
+    {
+      id: 58,
+      name: 'Failure to yield for emergency vehicles',
+      jail: 0,
+      price: 750
+    },
+    {
+      id: 59,
+      name: 'Ilegally parked',
+      jail: 0,
+      price: 250
+    },
+    {
+      id: 60,
+      name: 'Illegal passing',
+      jail: 0,
+      price: 300
+    },
+    {
+      id: 61,
+      name: 'Illegal Street Racing',
+      jail: 0,
+      price: 2000
+    },
+    {
+      id: 62,
+      name: 'illegal turn',
+      jail: 0,
+      price: 250
+    },
+    {
+      id: 63,
+      name: 'illegal u-turn',
+      jail: 0,
+      price: 250
+    },
+    {
+      id: 64,
+      name: 'Impeding traffic',
+      jail: 0,
+      price: 250
+    },
+    {
+      id: 65,
+      name: 'Negligent driving',
+      jail: 0,
+      price: 500
+    },
+    {
+      id: 66,
+      name: 'Reckless driving',
+      jail: 0,
+      price: 750
+    },
+    {
+      id: 67,
+      name: 'Speeding 1-10',
+      jail: 0,
+      price: 250
+    },
+    {
+      id: 68,
+      name: 'Speeding 11-30',
+      jail: 0,
+      price: 350
+    },
+    {
+      id: 69,
+      name: 'Speeding 31-50',
+      jail: 0,
+      price: 450
+    },
+    {
+      id: 70,
+      name: 'Speeding 51-75',
+      jail: 0,
+      price: 750
+    },
+    {
+      id: 71,
+      name: 'Speeding 76-125',
+      jail: 0,
+      price: 1000
+    },
+    {
+      id: 72,
+      name: 'Speeding 125+',
+      jail: 0,
+      price: 2000
+    },
+    {
+      id: 73,
+      name: 'Tailgating',
+      jail: 0,
+      price: 250
+    },
+    {
+      id: 74,
+      name: 'Travelling the wrong way',
+      jail: 0,
+      price: 250
+    },
+    {
+      id: 75,
+      name: 'Vehicle not road worthy',
+      jail: 0,
+      price: 250
+    },
+
+    {
+      id: 76,
+      name: 'Possession of Bagged Weed 3-20+',
+      jail: 0,
+      price: 100
+    },
+    {
+      id: 77,
+      name: 'Possession of Bagged Weed 20+',
+      jail: 2,
+      price: 200
+    },
+    {
+      id: 78,
+      name: 'Possession of Bagged Weed 40+',
+      jail: 4,
+      price: 300
+    },
+    {
+      id: 79,
+      name: 'Possession of Bagged Weed 60+',
+      jail: 6,
+      price: 400
+    },
+    {
+      id: 80,
+      name: 'Possession of Bagged Weed 80+',
+      jail: 10,
+      price: 500
+    },
+    {
+      id: 81,
+      name: 'Possession of Bagged 1-20+ Heroin/Cocaine',
+      jail: 2,
+      price: 1000
+    },
+    {
+      id: 82,
+      name: 'Possession of Bagged 20+ Heroin/Cocaine',
+      jail: 4,
+      price: 2000
+    },
+    {
+      id: 83,
+      name: 'Possession of Bagged 40+ Heroin/Cocaine',
+      jail: 6,
+      price: 3000
+    },
+    {
+      id: 84,
+      name: 'Possession of Bagged 60+ Heroin/Cocaine',
+      jail: 8,
+      price: 4000
+    },
+    {
+      id: 85,
+      name: 'Possession of Bagged 80+ Heroin/Cocaine',
+      jail: 10,
+      price: 5000
+    },
   ];
   
-  //sepetim - my shopping cart
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  //sepetim - my shopping carteeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
   $scope.myItems = [];
   //sepete ekle - add to cart
   $scope.addItem = function(newItem) {
@@ -142,26 +655,109 @@ window.CP.exitedLoop(1);
       }
     }
     updatePrice();
+    updateJail();
   };
   
-  //fiyatı güncelle (totalPrice) - update price
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  //UPDATE FINE
   var updatePrice = function() {
     var totalPrice = 0;
     for( var i = 0; i < $scope.myItems.length; i++ ) {if (window.CP.shouldStopExecution(2)){break;}
       totalPrice += ($scope.myItems[i].count) * ($scope.myItems[i].price);
     }
-window.CP.exitedLoop(2);
+window.CP.exitedLoop(1);
 
     $scope.totalPrice = totalPrice;
   };
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    //UPDATE JAIL TIME
+  var updateJail = function() {
+    var totalJail = 0;
+    for( var i = 0; i < $scope.myItems.length; i++ ) {if (window.CP.shouldStopExecution(2)){break;}
+      totalJail += ($scope.myItems[i].count) * ($scope.myItems[i].jail);
+    }
+window.CP.exitedLoop(1);
+
+    $scope.totalJail = totalJail;
+  };
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   //sepeti boşalt - empty your cart
   $scope.removeBasket = function() {
     $scope.myItems.splice(0, $scope.myItems.length);
     updatePrice();
+    updateJail();
   };
   
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 app.filter('reverse', function() {
   return function(items) {
